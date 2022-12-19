@@ -1,0 +1,95 @@
+﻿<Window x:Class="Calc.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Calc"
+        xmlns:system="clr-namespace:System;assembly=System.Runtime"
+
+        mc:Ignorable="d"
+        Title="MainWindow" Height="450" Width="550">
+
+    <Window.Resources>
+        <local:ViewModel x:Key="Model"></local:ViewModel>
+    </Window.Resources>
+
+    <Grid DataContext="{Binding Source={StaticResource Model}}">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
+            <ColumnDefinition Width="200"/>
+        </Grid.ColumnDefinitions>
+
+        <Grid.RowDefinitions>
+            <RowDefinition Height="150"/>
+            <RowDefinition/>
+            <RowDefinition/>
+            <RowDefinition/>
+            <RowDefinition/>
+            <RowDefinition/>
+        </Grid.RowDefinitions>
+
+        <Button Grid.Column="3" Grid.Row="5" Content="=" Background="#D9C6B0" FontFamily="Open Sans" FontSize="20" Command="{Binding ObrabotchikKlavish}" CommandParameter="="/>
+        <Button Grid.Column="3" Grid.Row="4" Content="+" Background="#D9C6B0" FontFamily="Open Sans" FontSize="20" Command="{Binding ObrabotchikKlavish}" CommandParameter="+"/>
+        <Button Grid.Column="3" Grid.Row="3" Content="-" Background="#D9C6B0" FontFamily="Open Sans" FontSize="20" Command="{Binding ObrabotchikKlavish}" CommandParameter="-"/>
+        <Button Grid.Column="3" Grid.Row="2" Content="*" Background="#D9C6B0" FontFamily="Open Sans" FontSize="20" Command="{Binding ObrabotchikKlavish}" CommandParameter="*"/>
+        <Button Grid.Column="3" Grid.Row="1" Content="/" Background="#D9C6B0" FontFamily="Open Sans" FontSize="20" Command="{Binding ObrabotchikKlavish}" CommandParameter="/"/>
+
+        <Button Grid.Column="0" Grid.Row="5" Content="0"  Background="#BF0413" FontFamily="Open Sans" FontSize="20" Foreground="White" Command="{Binding ObrabotchikKlavish}" CommandParameter="0" />
+        <Button Grid.Column="0" Grid.Row="4" Content="1" Background="#BF0413" FontFamily="Open Sans" FontSize="20" Foreground="White" Command="{Binding ObrabotchikKlavish}" CommandParameter="1"/>
+        <Button Grid.Column="0" Grid.Row="3" Content="4" Background="#F2F2F2" FontFamily="Open Sans" FontSize="20" Command="{Binding ObrabotchikKlavish}" CommandParameter="4"/>
+        <Button Grid.Column="0" Grid.Row="2" Content="7" Background="#F2F2F2" FontFamily="Open Sans" FontSize="20" Command="{Binding ObrabotchikKlavish}" CommandParameter="7"/>
+        <Button Grid.Column="0" Grid.Row="1" Content="C"  Background="#D9C6B0" FontFamily="Open Sans" FontSize="20" Command="{Binding ObrabotchikKlavish}" CommandParameter="C"/>
+
+        <Button Grid.Column="1" Grid.Row="5" Content="Пробел"  Background="#BF0413" FontFamily="Open Sans" FontSize="20" Foreground="White" Command="{Binding ObrabotchikKlavish}" CommandParameter=" " />
+        <Button Grid.Column="1" Grid.Row="4" Content="2" Background="#BF0413" FontFamily="Open Sans" FontSize="20" Foreground="White" Command="{Binding ObrabotchikKlavish}" CommandParameter="2"/>
+        <Button Grid.Column="1" Grid.Row="3" Content="5" Background="#F2F2F2" FontFamily="Open Sans" FontSize="20" Command="{Binding ObrabotchikKlavish}" CommandParameter="5"/>
+        <Button Grid.Column="1" Grid.Row="2" Content="8" Background="#F2F2F2" FontFamily="Open Sans" FontSize="20" Command="{Binding ObrabotchikKlavish}" CommandParameter="8"/>
+        <Button Grid.Column="1" Grid.Row="1" Content="MC"  Background="#D9C6B0" FontFamily="Open Sans" FontSize="20" Command="{Binding ObrabotchikKlavish}" CommandParameter="MC"/>
+
+        <Button Grid.Column="2" Grid.Row="5" Content="." Background="#BF0413" FontFamily="Open Sans" FontSize="30" Foreground="White" Command="{Binding ObrabotchikKlavish}" CommandParameter="."/>
+        <Button Grid.Column="2" Grid.Row="4" Content="3" Background="#BF0413" FontFamily="Open Sans" FontSize="20" Foreground="White" Command="{Binding ObrabotchikKlavish}" CommandParameter="3"/>
+        <Button Grid.Column="2" Grid.Row="3" Content="6" Background="#F2F2F2" FontFamily="Open Sans" FontSize="20" Command="{Binding ObrabotchikKlavish}" CommandParameter="6"/>
+        <Button Grid.Column="2" Grid.Row="2" Content="9" Background="#F2F2F2" FontFamily="Open Sans" FontSize="20" Command="{Binding ObrabotchikKlavish}" CommandParameter="9"/>
+        <Button Grid.Column="2" Grid.Row="1" Content="MS"  Background="#D9C6B0" FontFamily="Open Sans" FontSize="20" Command="{Binding ObrabotchikKlavish}" CommandParameter="MS"/>
+
+        <TextBox Grid.Column="0" Grid.Row="0" Grid.ColumnSpan="4" Background="#FEE8DA" FontFamily="Open Sans" FontSize="48" VerticalContentAlignment="Bottom" TextWrapping="Wrap" Text="{Binding Display}"/>
+
+        <ScrollViewer Grid.Column="4" Grid.Row="0" Grid.RowSpan="6" VerticalScrollBarVisibility="Auto">
+            <ItemsControl  Background="#F2522E" ItemsSource="{Binding MemoryValues}" Padding="12 0">
+            <ItemsControl.ItemTemplate>
+                <DataTemplate>
+                        <Grid HorizontalAlignment="Stretch" Height="32" Background="#FEE8DA">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="32"/>
+                            <ColumnDefinition Width="32"/>
+                        </Grid.ColumnDefinitions>
+
+                        <TextBlock Text="{Binding   Value}"
+                                   TextAlignment="Left"
+                                   FontSize="24"
+                                   VerticalAlignment="Center"
+                                   />
+                        <Button Content="MR" 
+                                Command="{Binding Source={StaticResource Model} , Path= OnGetItem}"
+                                CommandParameter="{Binding }"
+                                Grid.Column="1"
+                                Background="#F2F2F2"/>
+                        <Button Content="MD" 
+                                Command="{Binding Source={StaticResource Model} , Path= OnRemoveItem}"
+                                CommandParameter="{Binding }"
+                                Grid.Column="2"
+                                Background="#BF0413"
+                                Foreground="#F2F2F2"/>
+
+
+                    </Grid>
+                </DataTemplate>
+            </ItemsControl.ItemTemplate>
+        </ItemsControl>
+        </ScrollViewer>
+    </Grid>
+</Window>
